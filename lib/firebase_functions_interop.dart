@@ -57,6 +57,13 @@ final js.FirebaseFunctions _module = require('firebase-functions');
 /// Cloud functions.
 final FirebaseFunctions functions = FirebaseFunctions._(_module);
 
+class FunctionsGroup {
+  final Object _group = newObject();
+  operator []=(String key, dynamic function) {
+    setProperty(_group, key, function);
+  }
+}
+
 typedef DataEventHandler<T> = FutureOr<void> Function(
     T data, EventContext context);
 typedef ChangeEventHandler<T> = FutureOr<void> Function(
@@ -116,8 +123,14 @@ class FirebaseFunctions {
   ///
   /// For HTTPS functions the [key] defines URL path prefix.
   operator []=(String key, dynamic function) {
-    assert(function is js.HttpsFunction || function is js.CloudFunction);
-    setExport(key, function);
+    assert(function is js.HttpsFunction ||
+        function is js.CloudFunction ||
+        function is FunctionsGroup);
+    if (function is FunctionsGroup) {
+      setExport(key, function._group);
+    } else {
+      setExport(key, function);
+    }
   }
 }
 
