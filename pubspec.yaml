@@ -14,10 +14,9 @@ dependencies:
   node_io: ^1.0.0-dev
   node_http: ^1.0.0-dev
   firebase_admin_interop: 
-    path: /Users/nann/m1-libs/firebase-admin-interop
-    # git: 
-      # url: https://github.com/m1-nann/firebase-admin-interop.git
-      # ref: nann
+    git: 
+      url: https://github.com/m1-nann/firebase-admin-interop.git
+      ref: nann
 
 dev_dependencies:
   test: ^1.0.0
